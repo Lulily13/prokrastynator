@@ -6,7 +6,7 @@ import java.util.List;
 
 public class UserInputHandler {
 
-    public void startInteractiveMenu(String inputPath, DataCollector dataCollector) {
+    public void startInteractiveMenu(String inputPath) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("========================================");
@@ -44,6 +44,7 @@ public class UserInputHandler {
 
         ExcelMiner miner = new ExcelMiner();
         miner.runMiner(inputPath, year); // załaduj dane do dataCollector
+        DataCollector dataCollector = miner.getDataCollector();
 
         String employee = null;
         String project = null;
@@ -53,8 +54,8 @@ public class UserInputHandler {
             case 1:
             case 3:
             case 4:
-                System.out.print("Podaj imię i nazwisko pracownika: ");
-                employee = scanner.nextLine();
+//                System.out.print("Podaj imię i nazwisko pracownika: ");
+//                employee = scanner.nextLine();
                 break;
 
             case 2:

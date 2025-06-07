@@ -4,7 +4,7 @@ package com.tigers;
 
 public class Main {
     public static void main(String[] args) {
-        String inputPath = null;
+        String inputPath = "/home/students/m/i/mikostrz/Documents/reporter-dane";
 
 
         for (int i = 0; i < args.length; i++) {
@@ -25,7 +25,7 @@ public class Main {
 
 
         UserInputHandler uiHandler = new UserInputHandler();
-        uiHandler.startInteractiveMenu(inputPath, miner.getDataCollector());
+        uiHandler.startInteractiveMenu(inputPath);
     }
 }
 
