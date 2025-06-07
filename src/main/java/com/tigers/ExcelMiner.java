@@ -7,17 +7,51 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
 
 public class ExcelMiner {
+
+    private String targetYear;
+    private fileIterator fileIteratorInstance;
 
     public DataCollector getDataCollector() {
         return dataCollector;
     }
 
     private DataCollector dataCollector = new DataCollector();
+
+    public String[] przejdzPrzezFolder(File folder) {
+        List<String> sciezki = new ArrayList<>();
+        if (folder == null || !folder.exists()) {
+            System.out.println("Folder nie istnieje.");
+            return new String[0];
+        }
+
+        if (!folder.isDirectory()) {
+            System.out.println(folder.getAbsolutePath() + " nie jest folderem.");
+            return new String[0];
+        }
+
+        File[] pliki = folder.listFiles();
+        if (pliki == null) {
+            System.out.println("Brak plików w folderze.");
+            return new String[0];
+        }
+
+        for (File plik : pliki) {
+            if (!plik.isDirectory() && plik.getName().endsWith(".xls")) {
+                sciezki.add(plik.getAbsolutePath());
+
+            } else {
+                String[] podfolderSciezki = przejdzPrzezFolder(plik);
+                for (String s : podfolderSciezki) {
+                    sciezki.add(s);
+                }
+            }
+        }
+
+        return sciezki.toArray(new String[0]);
+    }
 
     public void readExcel(String excelFilePath) {
 //        String excelFilePath = "/home/students/m/i/mikostrz/Documents/reporter-dane/2012/01/Kowalski_Jan.xls";
@@ -88,4 +122,15 @@ public class ExcelMiner {
         }
 
     }
+
+    public void runMiner(String path, String targetYear) {
+        String filepath = path + '/' + targetYear;
+        String[] paths = przejdzPrzezFolder(new File(filepath));
+
+        for (String path1 : paths) {
+            readExcel(path1);
+        }
+
+    }
+
 }
