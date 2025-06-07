@@ -3,7 +3,8 @@ package com.tigers;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Task {
+public class git fetch origin
+        git checkout Raport3Task {
     private String year;
     private String month;
     private String day;
