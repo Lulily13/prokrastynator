@@ -1,7 +1,8 @@
 package com.tigers;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Scanner;
+import java.util.List;
 
 public class UserInputHandler {
 
@@ -40,6 +41,9 @@ public class UserInputHandler {
             return;
         }
         String year = yearInput;
+
+        ExcelMiner miner = new ExcelMiner();
+        miner.runMiner(inputPath, year); // załaduj dane do dataCollector
 
         String employee = null;
         String project = null;
@@ -85,7 +89,18 @@ public class UserInputHandler {
                 break;
         }
 
-        // Podsumowanie wyboru
+        // Wybierz i uruchom konkretny raport
+        Segregator raport = null;
+        switch (reportNumber) {
+            case 1:
+                raport = new Raport1();
+                break;
+            // Tu dodaj Raport2, Raport3, itd.
+            default:
+                System.out.println("Raport jeszcze niezaimplementowany.");
+                return;
+        }
+
         System.out.println("\n----------------------------------------");
         System.out.println("Podsumowanie wyboru:");
         System.out.println("- Katalog danych: " + inputPath);
@@ -94,18 +109,16 @@ public class UserInputHandler {
         if (employee != null) System.out.println("- Pracownik: " + employee);
         if (project != null) System.out.println("- Projekt: " + project);
         if (prefix != null) System.out.println("- Filtrowanie po zadaniach typu: " + prefix);
-        System.out.println("Przygotowywanie raportu... (do zaimplementowania)");
         System.out.println("----------------------------------------");
 
-        // Wstępne uruchomienie tylko raportu 1 jako przykład
-        if (reportNumber == 1) {
-            Raport1 raport1 = new Raport1();
-            List<String> lines = raport1.prepareReport(dataCollector);
-            RaportPrinter1 printer = new RaportPrinter1();
-            printer.printReport(lines);
+        Collection<String> raportWynik = raport.prepareReport(dataCollector);
+        System.out.println("\n===== RAPORT =====");
+        for (String line : raportWynik) {
+            System.out.println(line);
         }
-
-        // Pozostałe raporty do zaimplementowania zgodnie z architekturą Segregator/ReportPrinter
+        System.out.println("==================");
     }
 }
+
+
 
