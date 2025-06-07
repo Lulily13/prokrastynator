@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class git fetch origin
-        git checkout Raport3Task {
+public class Task {
     private String year;
     private String month;
     private String day;
