@@ -2,6 +2,9 @@ package com.tigers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class git fetch origin
         git checkout Raport3Task {
@@ -14,6 +17,28 @@ public class git fetch origin
     private String category;
     private double hours;
     private String projectName;
+
+    public Task(String year, String day, String month, String employee, double hours, String projectName, String taskName) {
+        this.year = year;
+        this.day = day;
+        this.month = month;
+        this.employee = employee;
+        this.hours = hours;
+        this.projectName = projectName;
+        this.taskName = taskName;
+
+        Pattern categoryPattern = Pattern.compile("\\(([^)]+)\\)");
+        Matcher categoryMatcher = categoryPattern.matcher(taskName);
+        this.category = categoryMatcher.find() ? categoryMatcher.group(1) : null;
+
+        Pattern tagPattern = Pattern.compile("#(\\w+)");
+        Matcher tagMatcher = tagPattern.matcher(taskName);
+        List<String> tags = new ArrayList<>();
+        while (tagMatcher.find()) {
+            tags.add(tagMatcher.group(1));
+        }
+        this.tags = tags;
+    }
 
 
     public String getMonth() {
