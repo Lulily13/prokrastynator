@@ -12,7 +12,6 @@ import java.util.*;
 public class ExcelMiner {
 
     private String targetYear;
-    private fileIterator fileIteratorInstance;
 
     public DataCollector getDataCollector() {
         return dataCollector;
