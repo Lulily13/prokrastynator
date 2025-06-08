@@ -16,7 +16,7 @@ public class Report1Chart implements Chart {
 
     public void generateChart(DataCollector dataCollector) throws IOException {
 
-        String outputPath = "chart/raport1.png";
+        String outputPath = "chart/report1.png";
 
         Map<String, Double> employeeHoursMap = new HashMap<>();
         for (Task task : dataCollector.getTasks()) {
