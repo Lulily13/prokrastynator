@@ -2,7 +2,7 @@ package com.tigers;
 
 import java.util.*;
 
-public class Raport1 implements Segregator {
+public class Report1 implements Segregator {
 
     @Override
     public Collection<String> prepareReport(DataCollector dataCollector) {

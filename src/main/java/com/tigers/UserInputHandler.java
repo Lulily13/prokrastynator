@@ -42,7 +42,7 @@ public class UserInputHandler {
         String year = yearInput;
 
         ExcelMiner miner = new ExcelMiner();
-        miner.runMiner(inputPath, year); // załaduj dane do dataCollector
+        miner.runMiner(inputPath, year);
         DataCollector dataCollector = miner.getDataCollector();
 
         String employee = null;
@@ -52,11 +52,11 @@ public class UserInputHandler {
         switch (reportNumber) {
             case 3:
             case 4:
-                System.out.print("Podaj imię i nazwisko pracownika: ");
+                System.out.print("Podaj imię i nazwisko pracownika (w formacie Nazwisko_Imię): ");
                 employee = scanner.nextLine();
                 break;
             case 5:
-                System.out.print("Podaj nazwę projektu lub pracownika: ");
+                System.out.print("Podaj nazwę projektu lub pracownika (w formacie Nazwa projektu lub Nazwisko_Imię): ");
                 String input = scanner.nextLine();
                 if (input.toLowerCase().startsWith("proj:")) {
                     project = input.substring(5);
@@ -83,25 +83,25 @@ public class UserInputHandler {
         }
 
         // Wybierz i uruchom konkretny raport
-        Segregator raport = null;
+        Segregator report = null;
         switch (reportNumber) {
             case 1:
-                raport = new Raport1();
+                report = new Report1();
                 break;
             case 2:
-                raport = new Report2(year);
+                report = new Report2(year);
                 break;
-//            case 3:
-//                raport = new Report3(employee,year);
-//                break;
-//            case 4:
-//                raport = new Report4();
-//                break;
+            case 3:
+                report = new Report3(employee);
+                break;
+            case 4:
+                report = new Report4(employee, year);
+                break;
 //            case 5:
-//                raport = new Report5();
+//                report = new Report5();
 //                break;
 //            case 6:
-//                raport = new Report6();
+//                report = new Report6();
 //                break;
 
             default:
@@ -119,18 +119,11 @@ public class UserInputHandler {
         if (prefix != null) System.out.println("- Filtrowanie po zadaniach typu: " + prefix);
         System.out.println("----------------------------------------");
 
-        /*Collection<String> raportWynik = raport.prepareReport(dataCollector);
-        System.out.println("\n===== RAPORT =====");
-        for (String line : raportWynik) {
-            System.out.println(line);
-        }
-        System.out.println("==================");*/
-
-        Collection<String> raportWynik = raport.prepareReport(dataCollector);
+        Collection<String> reportResult = report.prepareReport(dataCollector);
 
         System.out.println("\n===== RAPORT =====");
-        ReportPrinter2 fancy = new ReportPrinter2();
-        fancy.printFancyTable(raportWynik);
+        GeneralReportPrinter fancy = new GeneralReportPrinter();
+        fancy.printFancyTable(reportResult);
         System.out.println("==================");
 
     }

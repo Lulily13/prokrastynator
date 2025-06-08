@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 
-public class ReportPrinter2 {
+public class GeneralReportPrinter {
 
     public void printFancyTable(Collection<String> lines) {
         List<String[]> rows = new ArrayList<>();
