@@ -195,8 +195,6 @@ public class UserInputHandler {
             if (chartCheck2.equals("y")) {
                 DisplayImage displayImage = new DisplayImage("chart/report" + reportNumber + ".png");
                 displayImage.displayImageFun();
-
-
             }
         }
 

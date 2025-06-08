@@ -29,7 +29,7 @@ public class Report5Chart implements Chart{
         Map<String, Double> taskSummary = new TreeMap<>();
         String outputPath = "chart/report5.png";  // Ścieżka do pliku
 
-        // Przetwarzanie danych w zależności od filtrów
+
         for (Task task : dataCollector.getTasks()) {
             if (employee != null && !task.getEmployee().equalsIgnoreCase(employee)) continue;
             if (project != null && !task.getProjectName().equalsIgnoreCase(project)) continue;

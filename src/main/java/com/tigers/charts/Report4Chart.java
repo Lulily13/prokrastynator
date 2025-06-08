@@ -26,9 +26,9 @@ public class Report4Chart implements Chart{
     public void generateChart(DataCollector dataCollector) throws IOException {
         Map<String, Double> projectHours = new HashMap<>();
         double totalHours = 0.0;
-        String outputPath = "chart/report4.png";  // ścieżka względna
+        String outputPath = "chart/report4.png";
 
-        // Agregowanie danych dla danego pracownika
+
         for (Task task : dataCollector.getTasks()) {
             if (task.getEmployee().equalsIgnoreCase(selectedEmployee)) {
                 String project = task.getProjectName();

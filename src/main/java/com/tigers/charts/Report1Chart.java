@@ -44,6 +44,5 @@ public class Report1Chart implements Chart {
         }
 
         ChartUtils.saveChartAsPNG(outputFile, barChart, 800, 600);
-//        System.out.println("Wykres zapisany do: " + outputFile.getAbsolutePath());
     }
 }

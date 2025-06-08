@@ -58,6 +58,7 @@ public class Report3Chart implements Chart{
             outputDirectory.mkdirs();
         }
 
+
         File outputFile = new File(outputDirectory, outputFileName);
 
         try {

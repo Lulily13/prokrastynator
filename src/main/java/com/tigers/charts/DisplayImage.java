@@ -20,7 +20,6 @@ public class DisplayImage {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Sprawdzenie, czy plik istnieje
         File file = new File(imagePath);
         if (!file.exists()) {
             System.out.println("Błąd: Plik obrazu nie istnieje w ścieżce: " + imagePath);
