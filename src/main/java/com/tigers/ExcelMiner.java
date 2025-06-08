@@ -73,6 +73,7 @@ public class ExcelMiner {
                 for (int j = 1; j <= sheet.getLastRowNum(); j++) {
                     Row row = sheet.getRow(j);
                     String projectName = workbook.getSheetName(i);
+
                     for (Cell cell : row) {
                         switch (cell.getCellType()) {
                             case STRING:
@@ -88,8 +89,6 @@ public class ExcelMiner {
                             case BOOLEAN:
                                 System.out.print(cell.getBooleanCellValue() + "\t");
                                 break;
-                            default:
-                                System.out.print("UNKNOWN\t");
                         }
                         Calendar Cal = Calendar.getInstance();
                         Cal.setTime(date);
