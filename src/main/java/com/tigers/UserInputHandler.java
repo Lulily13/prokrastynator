@@ -1,11 +1,14 @@
 package com.tigers;
 
+import com.tigers.charts.*;
+
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Scanner;
 
 public class UserInputHandler {
 
-    public void startInteractiveMenu(String inputPath) {
+    public void startInteractiveMenu(String inputPath) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("========================================");
@@ -146,6 +149,35 @@ public class UserInputHandler {
         GeneralReportPrinter fancy = new GeneralReportPrinter();
         fancy.printFancyTable(reportResult);
         System.out.println("==================");
+
+        System.out.println("Chcesz wygenerować wykres (y/n):");
+        String chartCheck = scanner.nextLine();
+
+        if (chartCheck.equals("y")) {
+            Chart chart = null;
+            switch (reportNumber){
+                case 1:
+                    chart = new Report1Chart();
+
+                    break;
+                case 2:
+                    chart = new Report2Chart(year);
+                    break;
+
+                case 3:
+                    chart = new Report3Chart(employee);
+                    break;
+
+                case 4:
+                    chart = new Report4Chart(employee);
+                    break;
+
+                case 5:
+                    chart = new Report5Chart(employee,project,prefix);
+                    break;
+            }
+            chart.generateChart(dataCollector);
+        }
 
     }
 }
