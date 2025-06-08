@@ -6,7 +6,8 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String inputPath = "/mnt/workspaces/private/prokrastynator/dane";
+//        String inputPath = "/mnt/workspaces/private/prokrastynator/dane";
+        String inputPath = args[0];
 
 //
 //        for (int i = 0; i < args.length; i++) {
