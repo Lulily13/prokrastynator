@@ -11,6 +11,8 @@ import java.util.*;
 
 import java.nio.file.Paths;
 import java.nio.file.Path;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ExcelMiner {
 
@@ -56,6 +58,7 @@ public class ExcelMiner {
     }
 
     public void readExcel(String excelFilePath) {
+
         double hours = 0;
         String category = "";
         String year = "";
@@ -63,8 +66,13 @@ public class ExcelMiner {
         String month = "";
         String fileName = "";
         Date date = new Date();
+        Path path;
+        String fileNameWithExtension;
+
 
         try (FileInputStream fis = new FileInputStream(new File(excelFilePath));
+
+
              Workbook workbook = new HSSFWorkbook(fis)) {
 
             int numberOfSheets = workbook.getNumberOfSheets();
@@ -77,7 +85,7 @@ public class ExcelMiner {
                     if (row == null) continue;
 
                     // Ensure the row has exactly 3 cells
-                    if (row.getPhysicalNumberOfCells() != 3) continue;
+                    if (row.getPhysicalNumberOfCells() < 3) continue;
                     try {
                         Cell dateCell = row.getCell(0);
                         Cell categoryCell = row.getCell(1);
@@ -86,29 +94,42 @@ public class ExcelMiner {
                         if (dateCell == null || categoryCell == null || hoursCell == null) continue;
 
                         // Validate the cell types
-                        if (!DateUtil.isCellDateFormatted(dateCell)) continue;
                         if (categoryCell.getCellType() != CellType.STRING) continue;
                         if (hoursCell.getCellType() != CellType.NUMERIC) continue;
 
                         // Extract and process data
-                        date = dateCell.getDateCellValue();
+                        if (dateCell.getCellType() == CellType.STRING){
+                            String textDate = dateCell.getStringCellValue();
+                            Pattern pattern = Pattern.compile("(\\d{2})\\.(\\d{2})\\.(\\d{4})");
+                            Matcher matcher = pattern.matcher(textDate);
+                            if (matcher.find()) {
+                                day = matcher.group(1);
+                                month = matcher.group(2);
+                                year = matcher.group(3);
+                            }
+                        } else {
+                            date = dateCell.getDateCellValue();
+                            Calendar Cal = Calendar.getInstance();
+                            Cal.setTime(date);
+                            year = String.valueOf(Cal.get(Calendar.YEAR));
+                            month = String.valueOf(Cal.get(Calendar.MONTH) + 1);
+                            day = String.valueOf(Cal.get(Calendar.DAY_OF_MONTH));
+                        }
+
                         category = categoryCell.getStringCellValue();
                         hours = hoursCell.getNumericCellValue();
 
-                        if (hours <= 0) {
-                            continue;
-                        }
+//                        if (hours <= 0) {
+//                            continue;
+//                        }
 
-                        Calendar Cal = Calendar.getInstance();
-                        Cal.setTime(date);
-                        year = String.valueOf(Cal.get(Calendar.YEAR));
-                        month = String.valueOf(Cal.get(Calendar.MONTH) + 1);
-                        day = String.valueOf(Cal.get(Calendar.DAY_OF_MONTH));
                         String projectName = workbook.getSheetName(i);
+                        path = Paths.get(excelFilePath);
 
-                        Path path = Paths.get(excelFilePath);
-                        String fileNameWithExtension = path.getFileName().toString();
+                        fileNameWithExtension = path.getFileName().toString();
                         fileName = fileNameWithExtension.replaceFirst("[.][^.]+$", "");
+
+
 
                         Task task = new Task(
                                 year,
@@ -125,8 +146,8 @@ public class ExcelMiner {
                     }
                     catch (Exception e) {
                         // Skip row on any parsing error
-                        System.out.println("Niepoprawne dane w rzędzie: " + j + " w arkuszu: '" + sheet.getSheetName() + "'" + " w pliku: " + excelFilePath);
-//                        e.printStackTrace();
+//                        System.out.println("Niepoprawne dane w rzędzie: " + j + " w arkuszu: '" + sheet.getSheetName() + "'" + " w pliku: " + excelFilePath);
+                        e.printStackTrace();
                     }
                 }
             }
