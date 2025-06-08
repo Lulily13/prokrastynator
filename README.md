@@ -16,11 +16,50 @@ Pozwala zapanować nad czasem pracy i projektami — nawet jeśli lubisz odwleka
 
 ---
 
-## 📁 Format danych wejściowych
+## 🗂️ Struktura danych wejściowych
+📁 Organizacja folderów i plików
+yaml
+Kopiuj
+Edytuj
+📂 dane/
+ ┣ 📂 2024/
+ ┃ ┣ 📂 01/
+ ┃ ┃ ┣ 📄 jan_kowalski.xlsx
+ ┃ ┃ ┣ 📄 anna_nowak.xlsx
+ ┃ ┃ ┗ ...
+ ┃ ┣ 📂 02/
+ ┃ ┃ ┣ 📄 jan_kowalski.xlsx
+ ┃ ┃ ┣ 📄 anna_nowak.xlsx
+ ┃ ┗ ...
+ ┣ 📂 2025/
+ ┃ ┣ 📂 06/
+ ┃ ┃ ┣ 📄 jan_kowalski.xlsx
+ ┃ ┃ ┣ 📄 anna_nowak.xlsx
+ ┃ ┗ ...
+Folder roku (2025/) zawiera podfoldery miesięczne (01/, 02/, ..., 12/)
 
-Plik `.xlsx` powinien zawierać dane w układzie:
+W każdym folderze miesiąca znajdują się pliki .xlsx odpowiadające pracownikom
 
-[UZUPEŁNIĆ - TO DO]
+Nazwa pliku: np. jan_kowalski.xlsx, anna.nowak.xlsx
+
+📄 Struktura pliku pracownika (Excel)
+Każdy plik .xlsx zawiera zakładki (arkusze) z nazwami projektów.
+
+W każdej zakładce dane w formacie:
+
+Data	Zadanie	Godzina
+13.01.2025	Wizyta u klienta	3
+19.01.2025	Analiza wymagań	5
+21.01.2025	Spisanie dokumentu wymagań	7
+22.01.2025	Prezentacja dla klienta	2
+23.01.2025	Spotkanie po prezentacji, podsumowanie i wnioski	1
+
+🧾 Kolumny:
+Kolumna	Format	Opis
+Data	dd.MM.yyyy	Data wykonania zadania
+Zadanie	Tekst	Opis zadania (opcjonalnie z prefixem, np. #bugfix)
+Godzina	Liczba (int/double)	Liczba przepracowanych godzin
+
 
 ---
 
