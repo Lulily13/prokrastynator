@@ -26,7 +26,7 @@ public class Report1 implements Segregator {
         int lp = 1;
         for (String employee : employeeHoursMap.keySet()) {
             double hours = employeeHoursMap.get(employee);
-            report.add(lp + " | " + employee + " | " + String.format("%.2f", hours) + "h");
+            report.add(lp + " | " + employee + " | " + String.format(Locale.US, "%.2f", hours) + "h");
             lp++;
         }
 
