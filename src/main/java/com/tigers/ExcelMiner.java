@@ -90,15 +90,16 @@ public class ExcelMiner {
                                 System.out.print(cell.getBooleanCellValue() + "\t");
                                 break;
                         }
-                        Calendar Cal = Calendar.getInstance();
-                        Cal.setTime(date);
-                        year = String.valueOf(Cal.get(Calendar.YEAR));
-                        month = String.valueOf(Cal.get(Calendar.MONTH) + 1);
-                        day = String.valueOf(Cal.get(Calendar.DAY_OF_MONTH));
-                        String fileNameWithExtension = excelFilePath.substring(excelFilePath.lastIndexOf("/") + 1);
-                        fileName = fileNameWithExtension.replaceFirst("[.][^.]+$", "");
-
                     }
+
+                    Calendar Cal = Calendar.getInstance();
+                    Cal.setTime(date);
+                    year = String.valueOf(Cal.get(Calendar.YEAR));
+                    month = String.valueOf(Cal.get(Calendar.MONTH) + 1);
+                    day = String.valueOf(Cal.get(Calendar.DAY_OF_MONTH));
+                    String fileNameWithExtension = excelFilePath.substring(excelFilePath.lastIndexOf("/") + 1);
+                    fileName = fileNameWithExtension.replaceFirst("[.][^.]+$", "");
+
                     if (hours > 0) {
                         Task task = new Task(
                                 year,
