@@ -1,5 +1,6 @@
 package com.tigers;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Scanner;
 
@@ -39,10 +40,9 @@ public class UserInputHandler {
             System.out.println("Błąd: Rok musi być czterocyfrowy.");
             return;
         }
-        String year = yearInput;
 
         ExcelMiner miner = new ExcelMiner();
-        miner.runMiner(inputPath, year);
+        miner.runMiner(inputPath, yearInput);
         DataCollector dataCollector = miner.getDataCollector();
 
         String employee = null;
@@ -93,13 +93,6 @@ public class UserInputHandler {
                 break;
 
             case 6:
-                System.out.print("Podaj nazwę projektu lub pracownika: ");
-                String tagTarget = scanner.nextLine();
-                if (tagTarget.toLowerCase().startsWith("proj:")) {
-                    project = tagTarget.substring(5);
-                } else {
-                    employee = tagTarget;
-                }
                 break;
         }
 
@@ -110,7 +103,7 @@ public class UserInputHandler {
                 report = new Report1();
                 break;
             case 2:
-                report = new Report2(year);
+                report = new Report2(yearInput);
                 break;
             case 3:
                 report = new Report3(employee);
@@ -121,9 +114,23 @@ public class UserInputHandler {
             case 5:
                 report = new Report5(employee,project, prefix);
                 break;
-//            case 6:
-//                report = new Report6();
-//                break;
+            case 6:
+                System.out.print("Czy chcesz filtrować po konkretnym tagu? (tak/nie): ");
+                String filterChoice = scanner.nextLine();
+                String tagFilter = null;
+
+                if (filterChoice.equalsIgnoreCase("tak")) {
+                    System.out.print("Podaj tag do filtrowania (np. critical): ");
+                    tagFilter = scanner.nextLine().trim();
+                }
+
+                LocalDate start = LocalDate.of(Integer.parseInt(yearInput), 1, 1);
+                LocalDate end = LocalDate.of(Integer.parseInt(yearInput), 12, 31);
+
+                report = new Report6()
+                        .withDateRange(start, end)
+                        .withTagFilter(tagFilter);
+                break;
 
             default:
                 System.out.println("Podaj numer z zakresu 1-6.");
@@ -134,7 +141,7 @@ public class UserInputHandler {
         System.out.println("Podsumowanie wyboru:");
         System.out.println("- Katalog danych: " + inputPath);
         System.out.println("- Numer raportu: " + reportNumber);
-        System.out.println("- Rok: " + year);
+        System.out.println("- Rok: " + yearInput);
         if (employee != null) System.out.println("- Pracownik: " + employee);
         if (project != null) System.out.println("- Projekt: " + project);
         if (prefix != null) System.out.println("- Filtrowanie po zadaniach typu: " + prefix);
