@@ -53,7 +53,6 @@ public class ExcelMiner {
     }
 
     public void readExcel(String excelFilePath) {
-//        String excelFilePath = "/home/students/m/i/mikostrz/Documents/reporter-dane/2012/01/Kowalski_Jan.xls";
         double hours = 0;
         String category = "";
         String year = "";
@@ -72,35 +71,40 @@ public class ExcelMiner {
 
                 for (int j = 1; j <= sheet.getLastRowNum(); j++) {
                     Row row = sheet.getRow(j);
-                    String projectName = workbook.getSheetName(i);
+                    if (row == null) continue;
 
-                    for (Cell cell : row) {
-                        switch (cell.getCellType()) {
-                            case STRING:
-                                category = cell.getStringCellValue();
-                                break;
-                            case NUMERIC:
-                                if (DateUtil.isCellDateFormatted(cell)) {
-                                    date = cell.getDateCellValue();
-                                } else {
-                                    hours = cell.getNumericCellValue();
-                                }
-                                break;
-                            case BOOLEAN:
-                                System.out.print(cell.getBooleanCellValue() + "\t");
-                                break;
+                    // Ensure the row has exactly 3 cells
+                    if (row.getPhysicalNumberOfCells() != 3) continue;
+                    try {
+                        Cell dateCell = row.getCell(0);
+                        Cell categoryCell = row.getCell(1);
+                        Cell hoursCell = row.getCell(2);
+
+                        if (dateCell == null || categoryCell == null || hoursCell == null) continue;
+
+                        // Validate the cell types
+                        if (!DateUtil.isCellDateFormatted(dateCell)) continue;
+                        if (categoryCell.getCellType() != CellType.STRING) continue;
+                        if (hoursCell.getCellType() != CellType.NUMERIC) continue;
+
+                        // Extract and process data
+                        date = dateCell.getDateCellValue();
+                        category = categoryCell.getStringCellValue();
+                        hours = hoursCell.getNumericCellValue();
+
+                        if (hours <= 0) {
+                            continue;
                         }
-                    }
 
-                    Calendar Cal = Calendar.getInstance();
-                    Cal.setTime(date);
-                    year = String.valueOf(Cal.get(Calendar.YEAR));
-                    month = String.valueOf(Cal.get(Calendar.MONTH) + 1);
-                    day = String.valueOf(Cal.get(Calendar.DAY_OF_MONTH));
-                    String fileNameWithExtension = excelFilePath.substring(excelFilePath.lastIndexOf("/") + 1);
-                    fileName = fileNameWithExtension.replaceFirst("[.][^.]+$", "");
+                        Calendar Cal = Calendar.getInstance();
+                        Cal.setTime(date);
+                        year = String.valueOf(Cal.get(Calendar.YEAR));
+                        month = String.valueOf(Cal.get(Calendar.MONTH) + 1);
+                        day = String.valueOf(Cal.get(Calendar.DAY_OF_MONTH));
+                        String projectName = workbook.getSheetName(i);
+                        String fileNameWithExtension = excelFilePath.substring(excelFilePath.lastIndexOf("/") + 1);
+                        fileName = fileNameWithExtension.replaceFirst("[.][^.]+$", "");
 
-                    if (hours > 0) {
                         Task task = new Task(
                                 year,
                                 day,
@@ -113,6 +117,10 @@ public class ExcelMiner {
                         Collection<Task> tasks = this.dataCollector.getTasks();
                         tasks.add(task);
                         this.dataCollector.setTasks(tasks);
+                    }
+                    catch (Exception e) {
+                        // Skip row on any parsing error
+                        System.out.println("Niepoprawne dane w rzędzie: " + j + " w arkuszu: '" + sheet.getSheetName() + "'" + " w pliku: " + excelFilePath);
                     }
                 }
             }
