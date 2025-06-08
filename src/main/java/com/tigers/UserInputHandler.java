@@ -119,12 +119,20 @@ public class UserInputHandler {
         if (prefix != null) System.out.println("- Filtrowanie po zadaniach typu: " + prefix);
         System.out.println("----------------------------------------");
 
-        Collection<String> raportWynik = raport.prepareReport(dataCollector);
+        /*Collection<String> raportWynik = raport.prepareReport(dataCollector);
         System.out.println("\n===== RAPORT =====");
         for (String line : raportWynik) {
             System.out.println(line);
         }
+        System.out.println("==================");*/
+
+        Collection<String> raportWynik = raport.prepareReport(dataCollector);
+
+        System.out.println("\n===== RAPORT =====");
+        ReportPrinter2 fancy = new ReportPrinter2();
+        fancy.printFancyTable(raportWynik);
         System.out.println("==================");
+
     }
 }
 
