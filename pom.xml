@@ -15,6 +15,13 @@
     </properties>
 
     <dependencies>
+        <!-- JFreeChart -->
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.5.3</version>
+        </dependency>
+
         <!-- For .xlsx files -->
         <dependency>
             <groupId>org.apache.poi</groupId>
@@ -36,6 +43,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
 
     <build>
         <plugins>

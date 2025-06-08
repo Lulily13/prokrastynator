@@ -1,7 +1,7 @@
 # 🕓 Prokrastynator
 
-**Aplikacja konsolowa Java 22 do analizy i generowania rocznych raportów czasu pracy z danych `.xlsx`.**
-Pozwala zapanować nad czasem pracy i projektami — nawet jeśli lubisz odwlekać sprawy na później 😉
+**Konsolowa aplikacja w Javie 22 do analizy i generowania rocznych raportów czasu pracy z plików `.xlsx`.**  
+Idealna dla pracodawcy, który chce wiedzieć, co robili jego ludzie... nawet jeśli oni sami już nie pamiętają 😉
 
 ---
 
@@ -17,49 +17,58 @@ Pozwala zapanować nad czasem pracy i projektami — nawet jeśli lubisz odwleka
 ---
 
 ## 🗂️ Struktura danych wejściowych
-📁 Organizacja folderów i plików
-yaml
-Kopiuj
-Edytuj
-📂 dane/
- ┣ 📂 2024/
- ┃ ┣ 📂 01/
- ┃ ┃ ┣ 📄 jan_kowalski.xlsx
- ┃ ┃ ┣ 📄 anna_nowak.xlsx
- ┃ ┃ ┗ ...
- ┃ ┣ 📂 02/
- ┃ ┃ ┣ 📄 jan_kowalski.xlsx
- ┃ ┃ ┣ 📄 anna_nowak.xlsx
- ┃ ┗ ...
- ┣ 📂 2025/
- ┃ ┣ 📂 06/
- ┃ ┃ ┣ 📄 jan_kowalski.xlsx
- ┃ ┃ ┣ 📄 anna_nowak.xlsx
- ┃ ┗ ...
-Folder roku (2025/) zawiera podfoldery miesięczne (01/, 02/, ..., 12/)
 
-W każdym folderze miesiąca znajdują się pliki .xlsx odpowiadające pracownikom
+```text
+📁 dane/
+├── 2024/
+│   ├── 01/
+│   │   ├── jan_kowalski.xlsx
+│   │   └── anna_nowak.xlsx
+│   ├── 02/
+│   │   ├── jan_kowalski.xlsx
+│   │   └── anna_nowak.xlsx
+│   └── ...
+├── 2025/
+│   ├── 06/
+│   │   ├── jan_kowalski.xlsx
+│   │   └── anna_nowak.xlsx
+│   └── ...
+```
 
-Nazwa pliku: np. jan_kowalski.xlsx, anna.nowak.xlsx
+Folder `2025/` zawiera podfoldery miesięczne (`01/`, `02/`, ..., `12/`), w których znajdują się pliki `.xlsx` z danymi dla poszczególnych pracowników.
 
-📄 Struktura pliku pracownika (Excel)
-Każdy plik .xlsx zawiera zakładki (arkusze) z nazwami projektów.
+### 🧑‍💼 Nazewnictwo plików
 
-W każdej zakładce dane w formacie:
+Przykłady nazw plików:
 
-Data	Zadanie	Godzina
-13.01.2025	Wizyta u klienta	3
-19.01.2025	Analiza wymagań	5
-21.01.2025	Spisanie dokumentu wymagań	7
-22.01.2025	Prezentacja dla klienta	2
-23.01.2025	Spotkanie po prezentacji, podsumowanie i wnioski	1
+- `jan_kowalski.xlsx`  
+- `Anna.Nowak.xlsx`
 
-🧾 Kolumny:
-Kolumna	Format	Opis
-Data	dd.MM.yyyy	Data wykonania zadania
-Zadanie	Tekst	Opis zadania (opcjonalnie z prefixem, np. #bugfix)
-Godzina	Liczba (int/double)	Liczba przepracowanych godzin
+---
 
+## 📄 Struktura pliku pracownika (`.xlsx`)
+
+Każdy plik zawiera **arkusze z nazwami projektów** (np. `CRM`, `Nowa strona`, `#rekonstrukcja_systemu`).
+
+Wewnątrz arkusza znajdują się dane w układzie:
+
+| Data        | Zadanie                                            | Godzina |
+|-------------|-----------------------------------------------------|---------|
+| 13.01.2025  | Wizyta u klienta                                    | 3       |
+| 19.01.2025  | Analiza wymagań                                     | 5       |
+| 21.01.2025  | Spisanie dokumentu wymagań                          | 7       |
+| 22.01.2025  | Prezentacja dla klienta                             | 2       |
+| 23.01.2025  | Spotkanie po prezentacji, podsumowanie i wnioski    | 1       |
+
+---
+
+## 🧾 Opis kolumn
+
+| Kolumna   | Format        | Opis                                                                 |
+|-----------|---------------|----------------------------------------------------------------------|
+| `Data`    | `dd.MM.yyyy`  | Data wykonania zadania                                               |
+| `Zadanie` | Tekst         | Opis zadania (opcjonalnie z prefixem, np. `#bugfix`, `#wdrożenie`)   |
+| `Godzina` | Liczba        | Liczba przepracowanych godzin (całkowita lub dziesiętna, np. `3.5`)  |
 
 ---
 

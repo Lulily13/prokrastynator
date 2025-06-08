@@ -1,12 +1,15 @@
 package com.tigers;
 
 import java.time.LocalDate;
+import com.tigers.charts.*;
+
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Scanner;
 
 public class UserInputHandler {
 
-    public void startInteractiveMenu(String inputPath) {
+    public void startInteractiveMenu(String inputPath) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("========================================");
@@ -40,9 +43,10 @@ public class UserInputHandler {
             System.out.println("Błąd: Rok musi być czterocyfrowy.");
             return;
         }
+        String year = yearInput;
 
         ExcelMiner miner = new ExcelMiner();
-        miner.runMiner(inputPath, yearInput);
+        miner.runMiner(inputPath, year);
         DataCollector dataCollector = miner.getDataCollector();
 
         String employee = null;
@@ -103,7 +107,7 @@ public class UserInputHandler {
                 report = new Report1();
                 break;
             case 2:
-                report = new Report2(yearInput);
+                report = new Report2(year);
                 break;
             case 3:
                 report = new Report3(employee);
@@ -141,7 +145,7 @@ public class UserInputHandler {
         System.out.println("Podsumowanie wyboru:");
         System.out.println("- Katalog danych: " + inputPath);
         System.out.println("- Numer raportu: " + reportNumber);
-        System.out.println("- Rok: " + yearInput);
+        System.out.println("- Rok: " + year);
         if (employee != null) System.out.println("- Pracownik: " + employee);
         if (project != null) System.out.println("- Projekt: " + project);
         if (prefix != null) System.out.println("- Filtrowanie po zadaniach typu: " + prefix);
@@ -153,6 +157,35 @@ public class UserInputHandler {
         GeneralReportPrinter fancy = new GeneralReportPrinter();
         fancy.printFancyTable(reportResult);
         System.out.println("==================");
+
+        System.out.println("Chcesz wygenerować wykres (y/n):");
+        String chartCheck = scanner.nextLine();
+
+        if (chartCheck.equals("y")) {
+            Chart chart = null;
+            switch (reportNumber){
+                case 1:
+                    chart = new Report1Chart();
+
+                    break;
+                case 2:
+                    chart = new Report2Chart(year);
+                    break;
+
+                case 3:
+                    chart = new Report3Chart(employee);
+                    break;
+
+                case 4:
+                    chart = new Report4Chart(employee);
+                    break;
+
+                case 5:
+                    chart = new Report5Chart(employee,project,prefix);
+                    break;
+            }
+            chart.generateChart(dataCollector);
+        }
 
     }
 }
