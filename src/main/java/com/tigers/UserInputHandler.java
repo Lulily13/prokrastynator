@@ -3,6 +3,7 @@ package com.tigers;
 import java.time.LocalDate;
 import com.tigers.charts.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Scanner;
@@ -185,6 +186,16 @@ public class UserInputHandler {
                     break;
             }
             chart.generateChart(dataCollector);
+
+            System.out.println("Wyświetlić raport(y/n): ");
+            String chartCheck2 = scanner.nextLine();
+
+//            System.out.println("Aktualny katalog roboczy: " + new File(".").getAbsolutePath());
+
+            if (chartCheck2.equals("y")) {
+                DisplayImage displayImage = new DisplayImage("chart/report" + reportNumber + ".png");
+                displayImage.displayImageFun();
+            }
         }
 
     }
