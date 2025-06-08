@@ -26,7 +26,7 @@ public class Task {
         this.projectName = projectName;
         this.taskName = taskName;
 
-        Pattern categoryPattern = Pattern.compile("\\(([^)]+)\\)");
+        Pattern categoryPattern = Pattern.compile("\\[([^)]+)\\]");
         Matcher categoryMatcher = categoryPattern.matcher(taskName);
         this.category = categoryMatcher.find() ? categoryMatcher.group(1) : null;
 
