@@ -1,7 +1,7 @@
 # 🕓 Prokrastynator
 
-**Aplikacja konsolowa Java 22 do analizy i generowania rocznych raportów czasu pracy z danych `.xlsx`.**
-Pozwala zapanować nad czasem pracy i projektami — nawet jeśli lubisz odwlekać sprawy na później 😉
+**Konsolowa aplikacja w Javie 22 do analizy i generowania rocznych raportów czasu pracy z plików `.xlsx`.**  
+Idealna dla pracodawcy, który chce wiedzieć, co robili jego ludzie... nawet jeśli oni sami już nie pamiętają 😉
 
 ---
 
@@ -17,27 +17,12 @@ Pozwala zapanować nad czasem pracy i projektami — nawet jeśli lubisz odwleka
 ---
 
 ## 🗂️ Struktura danych wejściowych
-## 📁 Organizacja folderów i plików YAML
 
-📂 dane/
-┣ 📂 2024/
-┃ ┣ 📂 01/
-┃ ┃ ┣ 📄 jan_kowalski.xlsx
-┃ ┃ ┣ 📄 anna_nowak.xlsx
-┃ ┃ ┗ ...
-┃ ┣ 📂 02/
-┃ ┃ ┣ 📄 jan_kowalski.xlsx
-┃ ┃ ┣ 📄 anna_nowak.xlsx
-┃ ┗ ...
-┣ 📂 2025/
-┃ ┣ 📂 06/
-┃ ┃ ┣ 📄 jan_kowalski.xlsx
-┃ ┃ ┣ 📄 anna_nowak.xlsx
-┃ ┗ ...
+<pre> 📁 dane/ ├── 2024/ │ ├── 01/ │ │ ├── jan_kowalski.xlsx │ │ └── anna_nowak.xlsx │ ├── 02/ │ │ ├── jan_kowalski.xlsx │ │ └── anna_nowak.xlsx │ └── ... ├── 2025/ │ ├── 06/ │ │ ├── jan_kowalski.xlsx │ │ └── anna_nowak.xlsx │ └── ... </pre>
 
 Folder `2025/` zawiera podfoldery miesięczne (`01/`, `02/`, ..., `12/`), w których znajdują się pliki `.xlsx` z danymi dla poszczególnych osób.
 
-Nazwa pliku: np. jan_kowalski.xlsx, anna.nowak.xlsx
+Nazwa pliku: np. jan_kowalski.xlsx, Anna.Nowak.xlsx
 
 📄 Struktura pliku pracownika (Excel)
 Każdy plik .xlsx zawiera zakładki (arkusze) z nazwami projektów.
@@ -56,7 +41,6 @@ Kolumna	Format	Opis
 Data	dd.MM.yyyy	Data wykonania zadania
 Zadanie	Tekst	Opis zadania (opcjonalnie z prefixem, np. #bugfix)
 Godzina	Liczba (int/double)	Liczba przepracowanych godzin
-
 
 ---
 
