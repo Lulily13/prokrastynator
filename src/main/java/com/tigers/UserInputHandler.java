@@ -2,7 +2,6 @@ package com.tigers;
 
 import java.util.Collection;
 import java.util.Scanner;
-import java.util.List;
 
 public class UserInputHandler {
 
@@ -13,8 +12,8 @@ public class UserInputHandler {
         System.out.println("           Prokrastynator v1.0");
         System.out.println("========================================");
         System.out.println("Wybierz numer raportu, który chcesz wygenerować:");
-        System.out.println("1 - Ile godzin przepracował konkretny pracownik w danym roku");
-        System.out.println("2 - Ile godzin poświęcono na wybrany projekt w danym roku");
+        System.out.println("1 - Ile godzin przepracowali wszyscy pracownicy w danym roku");
+        System.out.println("2 - Ile godzin poświęcono na wszystkie projekty w danym roku");
         System.out.println("3 - Jak pracownik rozkładał swój czas nad projektami w kolejnych miesiącach");
         System.out.println("4 - Jakie projekty zajmowały największą część czasu danego pracownika (procentowo)");
         System.out.println("5 - Szczegółowy raport: nad jakimi zadaniami pracował pracownik lub projekt (opcjonalnie tylko np. 'bugfixy')");
@@ -51,18 +50,11 @@ public class UserInputHandler {
         String prefix = null;
 
         switch (reportNumber) {
-            case 1:
             case 3:
             case 4:
-//                System.out.print("Podaj imię i nazwisko pracownika: ");
-//                employee = scanner.nextLine();
+                System.out.print("Podaj imię i nazwisko pracownika: ");
+                employee = scanner.nextLine();
                 break;
-
-            case 2:
-                System.out.print("Podaj nazwę projektu: ");
-                project = scanner.nextLine();
-                break;
-
             case 5:
                 System.out.print("Podaj nazwę projektu lub pracownika: ");
                 String input = scanner.nextLine();
@@ -96,9 +88,24 @@ public class UserInputHandler {
             case 1:
                 raport = new Raport1();
                 break;
-            // Tu dodaj Raport2, Raport3, itd.
+            case 2:
+                raport = new Report2(year);
+                break;
+//            case 3:
+//                raport = new Report3(employee,year);
+//                break;
+//            case 4:
+//                raport = new Report4();
+//                break;
+//            case 5:
+//                raport = new Report5();
+//                break;
+//            case 6:
+//                raport = new Report6();
+//                break;
+
             default:
-                System.out.println("Raport jeszcze niezaimplementowany.");
+                System.out.println("Podaj numer z zakresu 1-6.");
                 return;
         }
 
@@ -112,12 +119,20 @@ public class UserInputHandler {
         if (prefix != null) System.out.println("- Filtrowanie po zadaniach typu: " + prefix);
         System.out.println("----------------------------------------");
 
-        Collection<String> raportWynik = raport.prepareReport(dataCollector);
+        /*Collection<String> raportWynik = raport.prepareReport(dataCollector);
         System.out.println("\n===== RAPORT =====");
         for (String line : raportWynik) {
             System.out.println(line);
         }
+        System.out.println("==================");*/
+
+        Collection<String> raportWynik = raport.prepareReport(dataCollector);
+
+        System.out.println("\n===== RAPORT =====");
+        ReportPrinter2 fancy = new ReportPrinter2();
+        fancy.printFancyTable(raportWynik);
         System.out.println("==================");
+
     }
 }
 

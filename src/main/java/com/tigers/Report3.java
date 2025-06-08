@@ -1,58 +1,43 @@
 package com.tigers;
-import java.util.List;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-import java.util.TreeMap;
 
-public class Report3 {
+import java.util.*;
 
-    private final String selectedEmployee;
-    private final String selectedYear;
+public class Report3 implements Segregator {
 
-    public Report3(String selectedEmployee, String selectedYear) {
-        this.selectedEmployee = selectedEmployee;
-        this.selectedYear = selectedYear;
+    private String employee;
+
+    public Report3(String employee) {
+        this.employee = employee;
     }
 
-    public Collection<String> generateReport(DataCollector dataCollector) {
-        //Struktura: Projekt --> Godziny
-        //kluczen nazwa projektu --> String
-        //wartościa suma godzin --> Double
-        Map<String,Double> projectHours=new TreeMap<>(); //TreeMap do sortowania alfabetycznego
+
+    public List<String> prepareReport(DataCollector dataCollector){
+        Map<String, Double> reportMap = new TreeMap<>();
 
 
-        //Pętla po wszystkich zadaniach (Task) dostępnych w DATACOLLECTOR.
-        for(Task task : dataCollector.getTasks()){
-            //jak zadanie nie jest z wybranego roku
-            //i nie zostalo zrobione przez wybranego pracownika
-            //to je pomijam
-            if(!task.getEmployee().equalsIgnoreCase(selectedEmployee)) continue;
-            if (!task.getYear().equals(selectedYear)) continue;
+        for (Task task : dataCollector.getTasks()) {
+            if (task.getEmployee().equals(employee)) {
+                String year = task.getYear();
+                String month = task.getMonth();
+                String project = task.getProjectName();
 
+                String dateKey = String.format("%s-%02d", year, Integer.parseInt(month));
+                String fullKey = dateKey + "|" + project;
 
-            //z zadania pobieram nazwe projektu i liczbe godzin
-            String project = task.getProjectName();
-            double hours = task.getHours();
-
-            //do danego projektu dodaje godziny
-            //jeśli projektu jeszcze nie ma w mapie – zostanie dodany.
-            //jeśli już jest – godziny zostaną dodane do poprzednich
-            projectHours.merge(project, hours, Double::sum);
+                double hours = task.getHours();
+                reportMap.put(fullKey, reportMap.getOrDefault(fullKey, 0.0) + hours);
+            }
         }
 
-
-        //tworzę pustą listę wierszy tekstowych
-        //tu zapiszemy treść raportu
         List<String> report = new ArrayList<>();
-        report.add("Raport: " + selectedEmployee + " - rok " + selectedYear);
-        report.add("----------------------------");
+        int counter = 1;
+        for (Map.Entry<String, Double> entry : reportMap.entrySet()) {
+            String[] parts = entry.getKey().split("\\|");
+            String date = parts[0];
+            String project = parts[1];
+            double hours = entry.getValue();
 
-
-        //przechodzę przez każdy projekt z mapy projectHours
-        for (Map.Entry<String, Double> entry : projectHours.entrySet()) {
-            String line = String.format("Projekt %s: %.0f h", entry.getKey(), entry.getValue());
+            String line = String.format("%d. %s - %s - %.2f godzin", counter++, date, project, hours);
             report.add(line);
         }
 
