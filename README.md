@@ -1,3 +1,5 @@
+Wpiszczie +1, kiedy chwalicie się komuś projektem.
+
 # 🕓 Prokrastynator
 
 **Konsolowa aplikacja w Javie 22 do analizy i generowania rocznych raportów czasu pracy z plików `.xlsx`.**  
