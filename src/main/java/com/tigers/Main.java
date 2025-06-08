@@ -4,7 +4,7 @@ package com.tigers;
 
 public class Main {
     public static void main(String[] args) {
-        String inputPath = "/home/students/m/i/mikostrz/Documents/reporter-dane";
+        String inputPath = "/home/students/m/i/mikostrz/Downloads/HappyPath";
 
 
         for (int i = 0; i < args.length; i++) {
