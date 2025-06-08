@@ -56,19 +56,40 @@ public class UserInputHandler {
                 employee = scanner.nextLine();
                 break;
             case 5:
-                System.out.print("Podaj nazwę projektu lub pracownika (w formacie Nazwa projektu lub Nazwisko_Imię): ");
-                String input = scanner.nextLine();
-                if (input.toLowerCase().startsWith("proj:")) {
-                    project = input.substring(5);
-                } else {
-                    employee = input;
+                System.out.print("Checesz filtrować po kliencie (y/n): ");
+                String inputEmpl = scanner.nextLine();
+                String employeeCheck = inputEmpl.toLowerCase();
+                if (employeeCheck.equals("y")) {
+                    System.out.print("Podaj imię i nazwisko pracownika (w formacie Nazwisko_Imię): ");
+                    employee = scanner.nextLine();
                 }
-                System.out.print("Czy chcesz filtrować tylko konkretne typy zadań (np. tylko 'bugfix')? (tak/nie): ");
-                String choice = scanner.nextLine();
-                if (choice.equalsIgnoreCase("tak")) {
-                    System.out.print("Podaj prefix (np. bugfix): ");
+
+                else{ employee = null;
+                }
+
+                System.out.print("Checesz filtrować po projekcie (y/n): ");
+                String inputProj = scanner.nextLine();
+                String projCheck = inputProj.toLowerCase();
+                if (projCheck.equals("y")) {
+                    System.out.print("Podaj nazwę projektu: ");
+                    project = scanner.nextLine();
+                }
+
+                else{ project = null;
+                }
+
+                System.out.print("Checesz filtrować po Kategoriach (y/n): ");
+                String inputCat = scanner.nextLine();
+                String catCheck = inputCat.toLowerCase();
+                if (catCheck.equals("y")) {
+                    System.out.print("Podaj nazwę projektu: ");
                     prefix = scanner.nextLine();
                 }
+
+                else{ prefix = null;
+                }
+
+
                 break;
 
             case 6:
@@ -97,9 +118,9 @@ public class UserInputHandler {
             case 4:
                 report = new Report4(employee);
                 break;
-//            case 5:
-//                report = new Report5();
-//                break;
+            case 5:
+                report = new Report5(employee,project, prefix);
+                break;
 //            case 6:
 //                report = new Report6();
 //                break;
