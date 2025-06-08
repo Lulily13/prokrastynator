@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Report2 implements Segregator {
 
-    private String selectedYear;
+    private final String selectedYear;
 
     public Report2(String year) {
         this.selectedYear = year;
@@ -14,28 +14,27 @@ public class Report2 implements Segregator {
     public Collection<String> prepareReport(DataCollector dataCollector) {
         Map<String, Double> projectHours = new HashMap<>();
 
+        /* ---------------- główna pętla po zadaniach ---------------- */
         for (Task task : dataCollector.getTasks()) {
-            if (selectedYear.equals(task.getYear())) {
-                String project = task.getProjectName();
-                double hours = task.getHours();
 
-                Double currentHours = projectHours.get(project);
-                if (currentHours == null) {
-                    currentHours = 0.0;
-                }
+            /* (1) – filtrujemy po wybranym roku */
+            if (!selectedYear.equals(task.getYear())) continue;
 
-                projectHours.put(project, currentHours + hours);
-            }
+            /* (2) – pomijamy puste / null-owe nazwy projektu */
+            String project = task.getProjectName();
+            if (project == null || project.trim().isEmpty()) continue;
+
+            double hours = task.getHours();
+            projectHours.merge(project, hours, Double::sum);
         }
 
+        /* ---------------- budujemy wynik ---------------- */
         List<String> report = new ArrayList<>();
         report.add("Lp | Projekt | Liczba godzin");
 
         int lp = 1;
-        for (String project : projectHours.keySet()) {
-            double hours = projectHours.get(project);
-            report.add(lp + " | " + project + " | " + hours + "h");
-            lp++;
+        for (Map.Entry<String, Double> e : projectHours.entrySet()) {
+            report.add(lp++ + " | " + e.getKey() + " | " + e.getValue() + "h");
         }
 
         return report;
