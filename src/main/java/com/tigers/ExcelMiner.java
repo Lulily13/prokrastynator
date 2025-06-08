@@ -85,7 +85,10 @@ public class ExcelMiner {
                     if (row == null) continue;
 
                     // Ensure the row has exactly 3 cells
-                    if (row.getPhysicalNumberOfCells() < 3) continue;
+                    if (row.getPhysicalNumberOfCells() < 3) {
+                        System.out.println("Niepoprawne dane w rzędzie: " + j + " w arkuszu: '" + sheet.getSheetName() + "'" + " w pliku: " + excelFilePath);
+                        continue;
+                    }
                     try {
                         Cell dateCell = row.getCell(0);
                         Cell categoryCell = row.getCell(1);
@@ -119,9 +122,10 @@ public class ExcelMiner {
                         category = categoryCell.getStringCellValue();
                         hours = hoursCell.getNumericCellValue();
 
-//                        if (hours <= 0) {
-//                            continue;
-//                        }
+                        if (hours <= 0) {
+                            System.out.println("Niepoprawne dane w rzędzie: " + j + " w arkuszu: '" + sheet.getSheetName() + "'" + " w pliku: " + excelFilePath);
+                            continue;
+                        }
 
                         String projectName = workbook.getSheetName(i);
                         path = Paths.get(excelFilePath);
@@ -146,8 +150,8 @@ public class ExcelMiner {
                     }
                     catch (Exception e) {
                         // Skip row on any parsing error
-//                        System.out.println("Niepoprawne dane w rzędzie: " + j + " w arkuszu: '" + sheet.getSheetName() + "'" + " w pliku: " + excelFilePath);
-                        e.printStackTrace();
+                        System.out.println("Niepoprawne dane w rzędzie: " + j + " w arkuszu: '" + sheet.getSheetName() + "'" + " w pliku: " + excelFilePath);
+//                        e.printStackTrace();
                     }
                 }
             }
