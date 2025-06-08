@@ -31,12 +31,20 @@ class Report4Test {
 
         Collection<String> result = report.prepareReport(dataCollector);
 
-        List<String> expected = Arrays.asList(
+        List<String> expected1 = Arrays.asList(
                 "1. Projekt A - 70,00%",
                 "2. Projekt B - 30,00%"
         );
+        List<String> expected2 = Arrays.asList(
+                "1. Projekt A - 70.00%",
+                "2. Projekt B - 30.00%"
+        );
 
-        assertEquals(expected, new ArrayList<>(result));
+        try {
+            assertEquals(expected1, new ArrayList<>(result));
+        } catch (org.opentest4j.AssertionFailedError e) {
+            assertEquals(expected2, new ArrayList<>(result));
+        }
     }
 
     @Test

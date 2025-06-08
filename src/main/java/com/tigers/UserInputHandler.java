@@ -1,5 +1,6 @@
 package com.tigers;
 
+import java.time.LocalDate;
 import com.tigers.charts.*;
 
 import java.io.File;
@@ -97,13 +98,6 @@ public class UserInputHandler {
                 break;
 
             case 6:
-                System.out.print("Podaj nazwę projektu lub pracownika: ");
-                String tagTarget = scanner.nextLine();
-                if (tagTarget.toLowerCase().startsWith("proj:")) {
-                    project = tagTarget.substring(5);
-                } else {
-                    employee = tagTarget;
-                }
                 break;
         }
 
@@ -125,9 +119,23 @@ public class UserInputHandler {
             case 5:
                 report = new Report5(employee,project, prefix);
                 break;
-//            case 6:
-//                report = new Report6();
-//                break;
+            case 6:
+                System.out.print("Czy chcesz filtrować po konkretnym tagu? (tak/nie): ");
+                String filterChoice = scanner.nextLine();
+                String tagFilter = null;
+
+                if (filterChoice.equalsIgnoreCase("tak")) {
+                    System.out.print("Podaj tag do filtrowania (np. critical): ");
+                    tagFilter = scanner.nextLine().trim();
+                }
+
+                LocalDate start = LocalDate.of(Integer.parseInt(yearInput), 1, 1);
+                LocalDate end = LocalDate.of(Integer.parseInt(yearInput), 12, 31);
+
+                report = new Report6()
+                        .withDateRange(start, end)
+                        .withTagFilter(tagFilter);
+                break;
 
             default:
                 System.out.println("Podaj numer z zakresu 1-6.");
