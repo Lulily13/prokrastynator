@@ -2,12 +2,12 @@ package com.tigers;
 
 import java.util.*;
 
-public class Report5 implements Segregator {
+public class Report4 implements Segregator {
 
     private final String selectedEmployee;
     private final String selectedYear;
 
-    public Report5(String selectedEmployee, String selectedYear) {
+    public Report4(String selectedEmployee, String selectedYear) {
         this.selectedEmployee = selectedEmployee;
         this.selectedYear = selectedYear;
     }

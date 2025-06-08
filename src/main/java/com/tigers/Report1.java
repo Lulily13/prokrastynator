@@ -2,7 +2,7 @@ package com.tigers;
 
 import java.util.*;
 
-public class Raport1 implements Segregator {
+public class Report1 implements Segregator {
 
     public List<String> prepareReport(DataCollector dataCollector) {
         Map<String, Double> employeeHoursMap = new HashMap<>();
