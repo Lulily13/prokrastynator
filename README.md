@@ -35,27 +35,40 @@ Idealna dla pracodawcy, który chce wiedzieć, co robili jego ludzie... nawet je
 │   └── ...
 ```
 
-Folder `2025/` zawiera podfoldery miesięczne (`01/`, `02/`, ..., `12/`), w których znajdują się pliki `.xlsx` z danymi dla poszczególnych osób.
+Folder `2025/` zawiera podfoldery miesięczne (`01/`, `02/`, ..., `12/`), w których znajdują się pliki `.xlsx` z danymi dla poszczególnych pracowników.
 
-Nazwa pliku: np. jan_kowalski.xlsx, Anna.Nowak.xlsx
+### 🧑‍💼 Nazewnictwo plików
 
-📄 Struktura pliku pracownika (Excel)
-Każdy plik .xlsx zawiera zakładki (arkusze) z nazwami projektów.
+Przykłady nazw plików:
 
-W każdej zakładce dane w formacie:
+- `jan_kowalski.xlsx`  
+- `Anna.Nowak.xlsx`
 
-Data	Zadanie	Godzina
-13.01.2025	Wizyta u klienta	3
-19.01.2025	Analiza wymagań	5
-21.01.2025	Spisanie dokumentu wymagań	7
-22.01.2025	Prezentacja dla klienta	2
-23.01.2025	Spotkanie po prezentacji, podsumowanie i wnioski	1
+---
 
-🧾 Kolumny:
-Kolumna	Format	Opis
-Data	dd.MM.yyyy	Data wykonania zadania
-Zadanie	Tekst	Opis zadania (opcjonalnie z prefixem, np. #bugfix)
-Godzina	Liczba (int/double)	Liczba przepracowanych godzin
+## 📄 Struktura pliku pracownika (`.xlsx`)
+
+Każdy plik zawiera **arkusze z nazwami projektów** (np. `CRM`, `Nowa strona`, `#rekonstrukcja_systemu`).
+
+Wewnątrz arkusza znajdują się dane w układzie:
+
+| Data        | Zadanie                                            | Godzina |
+|-------------|-----------------------------------------------------|---------|
+| 13.01.2025  | Wizyta u klienta                                    | 3       |
+| 19.01.2025  | Analiza wymagań                                     | 5       |
+| 21.01.2025  | Spisanie dokumentu wymagań                          | 7       |
+| 22.01.2025  | Prezentacja dla klienta                             | 2       |
+| 23.01.2025  | Spotkanie po prezentacji, podsumowanie i wnioski    | 1       |
+
+---
+
+## 🧾 Opis kolumn
+
+| Kolumna   | Format        | Opis                                                                 |
+|-----------|---------------|----------------------------------------------------------------------|
+| `Data`    | `dd.MM.yyyy`  | Data wykonania zadania                                               |
+| `Zadanie` | Tekst         | Opis zadania (opcjonalnie z prefixem, np. `#bugfix`, `#wdrożenie`)   |
+| `Godzina` | Liczba        | Liczba przepracowanych godzin (całkowita lub dziesiętna, np. `3.5`)  |
 
 ---
 
