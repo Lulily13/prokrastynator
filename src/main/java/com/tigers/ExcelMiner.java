@@ -9,6 +9,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
 
+import java.nio.file.Paths;
+import java.nio.file.Path;
+
 public class ExcelMiner {
 
     private String targetYear;
@@ -102,7 +105,9 @@ public class ExcelMiner {
                         month = String.valueOf(Cal.get(Calendar.MONTH) + 1);
                         day = String.valueOf(Cal.get(Calendar.DAY_OF_MONTH));
                         String projectName = workbook.getSheetName(i);
-                        String fileNameWithExtension = excelFilePath.substring(excelFilePath.lastIndexOf("/") + 1);
+
+                        Path path = Paths.get(excelFilePath);
+                        String fileNameWithExtension = path.getFileName().toString();
                         fileName = fileNameWithExtension.replaceFirst("[.][^.]+$", "");
 
                         Task task = new Task(
