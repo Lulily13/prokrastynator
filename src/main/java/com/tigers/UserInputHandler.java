@@ -95,7 +95,7 @@ public class UserInputHandler {
                 report = new Report3(employee);
                 break;
             case 4:
-                report = new Report4(employee, year);
+                report = new Report4(employee);
                 break;
 //            case 5:
 //                report = new Report5();
