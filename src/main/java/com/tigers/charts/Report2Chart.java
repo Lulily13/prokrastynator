@@ -22,7 +22,7 @@ public class Report2Chart implements Chart{
 
     public void generateChart(DataCollector dataCollector) throws IOException {
         Map<String, Double> projectHours = new HashMap<>();
-        String outputPath = "chart/report2.png";  // ścieżka względna
+        String outputPath = "chart/report2.png";
 
         for (Task task : dataCollector.getTasks()) {
             if (selectedYear.equals(task.getYear())) {

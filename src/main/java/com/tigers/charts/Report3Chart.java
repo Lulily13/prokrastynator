@@ -51,12 +51,13 @@ public class Report3Chart implements Chart{
 
         String safeEmployeeName = employee.replaceAll("\\s+", "_");
         String outputDir = "chart";
-        String outputFileName = String.format("report3_%s.png", safeEmployeeName);
+        String outputFileName = String.format("report3.png", safeEmployeeName);
 
         File outputDirectory = new File(outputDir);
         if (!outputDirectory.exists()) {
             outputDirectory.mkdirs();
         }
+
 
         File outputFile = new File(outputDirectory, outputFileName);
 
