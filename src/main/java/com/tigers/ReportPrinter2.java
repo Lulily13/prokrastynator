@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-//FANCY DRUKOWANIE TABELI
 
 public class ReportPrinter2 {
 
-    private void printFancyTable(Collection<String> lines) {
+    public void printFancyTable(Collection<String> lines) {
         List<String[]> rows = new ArrayList<>();
         int[] colWidth = null;
 
@@ -37,7 +36,7 @@ public class ReportPrinter2 {
         System.out.println(sep);
     }
 
-    private String padRight(String txt, int len) {
+    public String padRight(String txt, int len) {
         return String.format("%-" + len + "s", txt);
     }
 }

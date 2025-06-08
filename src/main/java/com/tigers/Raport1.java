@@ -17,8 +17,9 @@ public class Raport1 implements Segregator {
         List<String> report = new ArrayList<>();
         int counter = 1;
         for (Map.Entry<String, Double> entry : employeeHoursMap.entrySet()) {
-            String line = String.format("%d. %s - %.2f godzin", counter++, entry.getKey(), entry.getValue());
+            String line = String.format("%d | %s | %.2f godzin", counter++, entry.getKey(), entry.getValue());
             report.add(line);
+
         }
 
         return report;
