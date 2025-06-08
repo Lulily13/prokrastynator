@@ -22,18 +22,18 @@ public class ExcelMiner {
     public String[] przejdzPrzezFolder(File folder) {
         List<String> sciezki = new ArrayList<>();
         if (folder == null || !folder.exists()) {
-            System.out.println("Folder nie istnieje.");
+//            System.out.println("Folder nie istnieje.");
             return new String[0];
         }
 
         if (!folder.isDirectory()) {
-            System.out.println(folder.getAbsolutePath() + " nie jest folderem.");
+//            System.out.println(folder.getAbsolutePath() + " nie jest folderem.");
             return new String[0];
         }
 
         File[] pliki = folder.listFiles();
         if (pliki == null) {
-            System.out.println("Brak plików w folderze.");
+//            System.out.println("Brak plików w folderze.");
             return new String[0];
         }
 
@@ -121,6 +121,7 @@ public class ExcelMiner {
                     catch (Exception e) {
                         // Skip row on any parsing error
                         System.out.println("Niepoprawne dane w rzędzie: " + j + " w arkuszu: '" + sheet.getSheetName() + "'" + " w pliku: " + excelFilePath);
+//                        e.printStackTrace();
                     }
                 }
             }
