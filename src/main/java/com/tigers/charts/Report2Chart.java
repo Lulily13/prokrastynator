@@ -1,5 +1,7 @@
-package com.tigers;
+package com.tigers.charts;
 
+import com.tigers.DataCollector;
+import com.tigers.Task;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
@@ -10,7 +12,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Report2Chart {
+public class Report2Chart implements Chart{
 
     private String selectedYear;
 
@@ -18,9 +20,9 @@ public class Report2Chart {
         this.selectedYear = year;
     }
 
-    public void generateBarChart(DataCollector dataCollector) throws IOException {
+    public void generateChart(DataCollector dataCollector) throws IOException {
         Map<String, Double> projectHours = new HashMap<>();
-        String outputPath = "/chart/report2.png";
+        String outputPath = "chart/report2.png";  // ścieżka względna
 
         for (Task task : dataCollector.getTasks()) {
             if (selectedYear.equals(task.getYear())) {
@@ -42,6 +44,13 @@ public class Report2Chart {
                 dataset
         );
 
-        ChartUtils.saveChartAsPNG(new File(outputPath), barChart, 800, 600);
+        File outputFile = new File(outputPath);
+        File parentDir = outputFile.getParentFile();
+        if (!parentDir.exists()) {
+            parentDir.mkdirs();
+        }
+
+        ChartUtils.saveChartAsPNG(outputFile, barChart, 800, 600);
     }
+
 }
