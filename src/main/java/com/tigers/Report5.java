@@ -36,7 +36,8 @@ public class Report5 implements Segregator {
 
         int lp = 1;
         for (Map.Entry<String, Double> entry : taskSummary.entrySet()) {
-            report.add(lp++ + " | " + entry.getKey() + " | " + String.format("%.2f", entry.getValue()) + " h");
+            report.add(lp++ + " | " + entry.getKey() + " | " + String.format(Locale.US, "%.2f", entry.getValue()) + " h");
+
         }
 
         return report;
