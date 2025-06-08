@@ -18,7 +18,22 @@ Idealna dla pracodawcy, który chce wiedzieć, co robili jego ludzie... nawet je
 
 ## 🗂️ Struktura danych wejściowych
 
-<pre> 📁 dane/ ├── 2024/ │ ├── 01/ │ │ ├── jan_kowalski.xlsx │ │ └── anna_nowak.xlsx │ ├── 02/ │ │ ├── jan_kowalski.xlsx │ │ └── anna_nowak.xlsx │ └── ... ├── 2025/ │ ├── 06/ │ │ ├── jan_kowalski.xlsx │ │ └── anna_nowak.xlsx │ └── ... </pre>
+```text
+📁 dane/
+├── 2024/
+│   ├── 01/
+│   │   ├── jan_kowalski.xlsx
+│   │   └── anna_nowak.xlsx
+│   ├── 02/
+│   │   ├── jan_kowalski.xlsx
+│   │   └── anna_nowak.xlsx
+│   └── ...
+├── 2025/
+│   ├── 06/
+│   │   ├── jan_kowalski.xlsx
+│   │   └── anna_nowak.xlsx
+│   └── ...
+```
 
 Folder `2025/` zawiera podfoldery miesięczne (`01/`, `02/`, ..., `12/`), w których znajdują się pliki `.xlsx` z danymi dla poszczególnych osób.
 
