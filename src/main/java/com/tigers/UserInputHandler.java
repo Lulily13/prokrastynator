@@ -91,12 +91,12 @@ public class UserInputHandler {
             case 2:
                 report = new Report2(year);
                 break;
-//            case 3:
-//                report = new Report3(employee,year);
-//                break;
-//            case 4:
-//                report = new Report4();
-//                break;
+            case 3:
+                report = new Report3(employee);
+                break;
+            case 4:
+                report = new Report4(employee, year);
+                break;
 //            case 5:
 //                report = new Report5();
 //                break;
